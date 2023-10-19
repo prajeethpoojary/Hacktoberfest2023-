@@ -1,0 +1,52 @@
+class FileManager:
+    def __init__(self, file_name):
+        self.file_name = file_name
+
+    def write_to_file(self, data):
+        try:
+            with open(self.file_name, 'w') as file:
+                file.write(data)
+            print(f"Data written to {self.file_name}")
+        except IOError as e:
+            print(f"Error writing to file: {e}")
+
+    def read_from_file(self):
+        try:
+            with open(self.file_name, 'r') as file:
+                data = file.read()
+            return data
+        except FileNotFoundError:
+            print(f"File {self.file_name} not found")
+            return None
+        except IOError as e:
+            print(f"Error reading from file: {e}")
+            return None
+
+    def append_to_file(self, data):
+        try:
+            with open(self.file_name, 'a') as file:
+                file.write(data)
+            print(f"Data appended to {self.file_name}")
+        except IOError as e:
+            print(f"Error appending to file: {e}")
+
+if __name__ == '__main__':
+    file_manager = FileManager('example.txt')
+
+    # Write data to the file
+    file_manager.write_to_file("This is some sample data.\n")
+    
+    # Read and display the file contents
+    file_contents = file_manager.read_from_file()
+    if file_contents:
+        print("File Contents:")
+        print(file_contents)
+
+    # Append more data to the file
+    file_manager.append_to_file("Additional data appended to the file.\n")
+
+    # Read and display the updated file contents
+    updated_contents = file_manager.read_from_file()
+    if updated_contents:
+        print("Updated File Contents:")
+        print(updated_contents)
